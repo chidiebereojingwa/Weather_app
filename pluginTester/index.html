@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html ng-app="buildfire">
+<head lang="en">
+
+	<!-- Title & Favicons -->
+	<title>BuildFire SDK</title>
+	<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+	<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+
+    <meta charset="UTF-8"/>
+    <base href="./"/>
+
+    <!-- CSS -->
+    <link href="../styles/auth.css" rel="stylesheet">
+    <link href="../styles/bootstrap.css" rel="stylesheet">
+    <link href="../styles/material-icons.css" rel="stylesheet">
+    <link href="../styles/siteStyle.css" rel="stylesheet">
+    <link href="styles/helper.css" rel="stylesheet">
+    <link href="../styles/loading.css" rel="stylesheet">
+    <link href="../styles/helper.css" rel="stylesheet">
+    <link href="../styles/siteIcons.css" rel="stylesheet">
+    <link href="styles/angular-color-picker.css" rel="stylesheet">
+    <link href="https://app.buildfire.com/styles/siteScreen.css" rel="stylesheet">
+    <link href="styles/appStyle.css" rel="stylesheet">
+    <link href="styles/input.css" rel="stylesheet">
+    <link href="styles/loading-bar.css" rel="stylesheet">
+
+    <link href="styles/pulldown.css" rel="stylesheet">
+    <!-- JS-->
+    <script src="scripts/angular/1.4/angular.min.js"></script>
+
+</head>
+<body onhashchange="window.location.reload()" ng-controller="indexCtrl">
+<div id="container" ng-controller="openDialogCtrl">
+    <div class="loading-screen"  ng-show="showSpinner">
+        <div class="loading-bg">
+            <div class="loading-dots">
+                <div class="dot dot1"></div>
+                <div class="dot dot2"></div>
+            </div>
+        </div>
+    </div>
+    <header class="navbar-fixed-top border-bottom-grey">
+        <div class="contain">
+            <a href="http://buildfire.com" class="logo text-center ng-scope">
+                <img src="http://alnnibitpo.cloudimg.io/s/width/400/http://imageserver.prod.s3.amazonaws.com/1717/58fcb420-dbb1-11e7-8d52-1d1f162b9785.png">
+            </a>
+            <span class="align-right" ng-class="status" ng-cloak>{{sdkMessage}} &nbsp;<a target="_blank" ng-show="sdkWikiLink" href="{{sdkWikiLink}}">How to update</a></span>
+            <div class="alert alert-danger site-alert trans ition-half text-center">Error Message.</div>
+            <div ng-controller="toastCtrl" ng-class="{'active' : showToast}" ng-cloak
+                 class="alert-{{style}} alert site-alert transition-half text-center ellipsis">{{text}}
+            </div>
+        </div>
+    </header>
+    <nav>
+        <ul class="menu">
+            <li>
+                <a href="http://github.com/buildfire/sdk/wiki" target="_blank" class="parent transition-third">
+                    <p class="text margin-zero ellipsis transition-third">API Docs</p>
+                    <span class="icon icon-bubble-question transition-third"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#/" class="parent transition-third">
+                    <p class="text margin-zero ellipsis transition-third">Tester</p>
+                    <span class="icon icon-home transition-third"></span>
+                </a>
+            </li>
+            <li>
+                <a href="https://twitter.com/BuildfireJS" target="_blank"
+                   class="parent transition-third" >
+                    <p class="text margin-zero ellipsis transition-third">BuildFire News</p>
+                    <span class="icon icon-bullhorn transition-third"></span>
+                </a>
+            </li>
+            <li>
+                <a ng-href="https://dev.buildfire.com" target="_blank"
+                   class="parent transition-third">
+                    <p class="text margin-zero ellipsis transition-third">Submit Plugin</p>
+                    <span class="icon icon-check-square transition-third"></span>
+                </a>
+            </li>
+            <li class="datatracer" >
+                <a href="{{dataTracer}}" ng-show="dataTracer" class="parent transition-third" target="_blank">
+                    <p class="text margin-zero ellipsis transition-third">Data Tracer</p>
+                    <span class="icon icon-cli transition-third"></span>
+                </a>
+            </li>
+            <li>
+                <a ng-href="https://github.com/BuildFire/sdk/wiki/App-Developer-Mode" class="parent transition-third" target="_blank">
+                    <p class="text margin-zero ellipsis transition-third">Test on Device</p>
+                    <span class="icon icon-check-square transition-third"></span>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" class="parent transition-third"
+                   href="https://app.buildfire.com">
+                    <p class="text margin-zero ellipsis transition-third">Control Panel</p>
+                    <span class="icon icon-window transition-third"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#/settings" class="parent transition-third">
+                    <p class="text margin-zero ellipsis transition-third">Settings</p>
+                    <span class="icon icon-cog transition-third"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#/apiKeys" class="parent transition-third">
+                    <p class="text margin-zero ellipsis transition-third current">API Keys</p>
+                    <span class="icon icon-hammer-wrench transition-third"></span>
+                </a>
+            </li>
+            <li class="divider">
+                Recent Plugins
+            </li>
+            <div >
+                <li class="" ng-repeat="p in recentPlugins" >
+                    <a ng-cloak href="#/plugin/{{p}}" class="parent transition-third">
+                        <p class="text margin-zero ellipsis transition-third">{{p}}</p>
+                    </a>
+                </li>
+            </div>
+        </ul>
+    </nav>
+
+    <section id="main-content">
+        <div class="shell-sdk holder">
+            <section id="pageContent" ng-class="{'largeWidth': hideEmulator}" class="pull-left slide wrapper border-radius-six border-grey" ng-view>
+            </section>
+            <section id="emulator" class="emulator-color" ng-controller="shellAppCtrl" ng-init="isWidgetShell = true">
+                <div id="emulatorContainer" ng-hide="hideEmulator">
+                    <div class="emulatorDevice">
+                        <div class="emulator-info-resize">
+                            <p>Resize to test on different resolutions!</p>
+                        </div>
+                        <div id="app" class="overflow-hidden">
+                            <div id="loading-bar-spinner" style="overflow: hidden;">
+                                <div class="loader">Loading...</div>
+                            </div>
+                            <div id="pluginRefreshPanel" ng-show="showNavigationBar">
+                                <p class="text-center">Pull to Refresh</p>
+                            </div>
+                            <div id="pluginContentPanel">
+                                <div id="widgetTitle" ng-show="showNavigationBar" class="emulator-header text-center" style="min-height:45px; position:absolute; width:100%;">
+                                    <a class="back-btn-icon icon icon-chevron-left" ng-click="back()"></a>
+                                    <!-- <span class="headerTitle" ng-click="titleClick()">Title</span> -->
+                                    <a class="pull-right test-device" ng-hide="currentAppUser" ng-click="appLogin()">App Login</a>
+                                    <a class="pull-right test-device" ng-show="currentAppUser" ng-click="appLogout()">App Logout</a>
+                                </div>
+                                {{errorMessage}}
+                                <iframe id="widget" ng-src="{{widgetSrc}}" style="height:100%; width:100%;"  ng-style="{'padding-top': showNavigationBar ? '49px' : '0px' }" class="pluginFrame" seamless allowfullscreen sandbox="allow-scripts allow-forms  allow-same-origin allow-popups"></iframe>
+                                <div id="login" ng-include="'https://app.buildfire.com/app/fragments/auth/auth.html'"></div>
+                                <div id="userProfile" ng-include="'https://app.buildfire.com/app/fragments/userProfile/userProfile.html'"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="showTools">
+                        <div class="showTools-links">
+                            <a ng-show="!showTools" ng-click="showTools=true">Show Tools</a>
+                            <a ng-show="showTools" ng-click="showTools=false">Hide Tools</a>
+                        </div>
+                        <div class="showTools-content clearfix" ng-show="showTools">
+                            <div class="labels col-md-3 pull-left padding-zero margin-top-five">
+                                <span>Deeplink Data</span>
+                            </div>
+                            <div class="main col-md-9 pull-right padding-right-zero">
+                                <div class="col-md-8 pull-left padding-zero">
+                                    <input id="dld" type="text" class="form-control" ng-model="link.deeplinkData"/>
+                                </div>
+                                <div class="col-md-4 pull-right padding-right-zero">
+                                    <button class="btn btn-primary stretch" ng-click="sendDeeplinkData()" ng-disabled="!link.deeplinkData">Send </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="snackbarhero" class="snackbar-hero hide" ng-class="{'has-footer-menu': turnOnFooterMenu}">
+                    <!-- Snackbar needs to be visible a minimum of 4 seconds and a maximum of 10 -->
+                    <div class="snackbar backgroundColorTheme" >
+                        <!-- Add class "open" to "snackbar" to make it visible -->
+                        <!-- Add class "snackbar-stacked" to "snackbar" for multiline text -->
+                        <p class="snackbar-message"></p>
+                        <div class="snackbar-actions">
+                            <button class="btn btn-text snackbar-action"><span class="text-primary"></span></button>
+                            <button class="btn btn-icon dismiss"><span class="icon icon-cross2"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </section>
+</div>
+
+
+<script type="text/javascript" src="../scripts/angular/angular-route.min.js"></script>
+<script type="text/javascript" src="../scripts/angular/ng-file-upload.min.js"></script>
+<script type="text/javascript" src="../scripts/angular/ng-file-upload-shim.min.js"></script>
+<script type="text/javascript" src="scripts/angular/1.4/ui-bootstrap.min.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+<script type="text/javascript" src="../scripts/angular/ng-map.min.js"></script>
+<script type="text/javascript" src="../scripts/angular/ngAutocomplete.js"></script>
+<script type="text/javascript" src="../scripts/angular/angulargrid.js"></script>
+<script type="text/javascript" src="../scripts/angular/ng-infinite-scroll.min.js"></script>
+<script type="text/javascript" src="scripts/angular/angular-color-picker.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.min.js"></script>
+<script type="text/javascript" src="scripts/lib/photoswipe.js"></script>
+<script type="text/javascript" src="scripts/lib/photoswipe-ui-default.min.js"></script>
+<script type="text/javascript" src="scripts/lib/ng-file-upload-shim.min.js"></script>
+<script type="text/javascript" src="scripts/lib/ng-file-upload.min.js"></script>
+
+<!-- JS -->
+<script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="pages/controllers/shellCtrl.js"></script>
+<script type="text/javascript" src="pages/controllers/shellAppCtrl.js"></script>
+<script type="text/javascript" src="pages/controllers/indexCtrl.js"></script>
+<script type="text/javascript" src="pages/controllers/settingsCtrl.js"></script>
+<script type="text/javascript" src="pages/controllers/apiKeysCtrl.js"></script>
+<script type="text/javascript" src="pages/services/gdprService.js"></script>
+<script type="text/javascript" src="pages/controllers/loginCtrl.js"></script>
+
+<script type="text/javascript" src="scripts/framework/app.min.js"></script>
+<script type="text/javascript" src="scripts/framework/web.min.js"></script>
+
+<script type="text/javascript" src="scripts/siteConfig.js"></script>
+<script type="text/javascript" src="scripts/appContext.js"></script>
+<script type="text/javascript" src="scripts/overrides.js"></script>
+<!--
+<script type="text/javascript" src="scripts/pullDownToRefresh.js"></script>
+-->
+
+<link href="https://app.buildfire.com/styles/bootstrapIcons.css" rel="stylesheet">
+<link rel='stylesheet' href='styles/photoswipe.css' />
+<link rel='stylesheet' href='styles/photoswipe.skin.css' />
+</body>
+</html>

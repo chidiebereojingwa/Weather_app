@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="home">
+<head>
+	<!-- Title & Favicons -->
+	<title>BuildFire SDK</title>
+	<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+	<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+
+	<!-- CSS -->
+    <link href="styles/helper.css" rel="stylesheet"/>
+    <link href="styles/bootstrap.css" rel="stylesheet"/>
+
+	<!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style type="text/css" media="screen">
+	body{
+		background:#eef0f0;
+		font-size:14px;
+		line-height:22px;
+	}
+
+	.logo{
+		width:100%;
+		max-height:256px;
+	}
+
+	.frameworks{
+		width:256px;
+	}
+	.main{
+		background:#fff;
+		width:100%;
+		max-width:1000px;
+		margin:60px auto;
+		padding:20px;
+	}
+	ul{
+		margin:0;
+		padding:0;
+	}
+	ul li{
+		list-style:none;
+		margin:15px 0;
+	}
+</style>
+<body>
+	<div class="main border-grey border-radius-four">
+		<div class="intro">
+			<img src="https://s3-us-west-2.amazonaws.com/pluginserver/docResources/devFullLogo.png" class="logo">
+		</div>
+		<hr>
+		<div>
+	    	<h3>Getting Started</h3>
+	    	<ul class="margin-top-fifteen">
+		        <li>1. To get started, sign up for the FREE developer program at <a href="http://dev.buildfire.com" class="text-primary" target="_blank">http://dev.buildfire.com</a>.</li>
+		        <li>2. Now you can begin developing your plugin. Plugins are located in the [plugins] folder. [myPlugin] is a simple "Hello World" starter kit.</li>
+
+
+			</ul>
+
+			<a class="btn btn-success" href="pluginTester/index.html#/plugin/myPlugin" >Start Developing</a>
+			<br/><br/>
+			<li class="text-danger">Make sure you run your local environment as a web application environment and not as static files from the file system.</li>
+
+			<br/>
+			<a class="btn btn-primary" href="https://github.com/BuildFire/sdk/wiki" target="_blank">API Documentation</a>
+			<a class="btn btn-primary" href="https://www.youtube.com/playlist?list=PLnq_waykAGlgsERwxHmGNokE6WIeVeH0I" target="_blank">Tutorials</a>
+			<a class="btn btn-primary" href="https://github.com/BuildFire/simpleBuildFireJSExamples" target="_blank">Example Plugins</a>
+			<a class="btn btn-primary" href="https://github.com/BuildFire/?utf8=%E2%9C%93&query=plugin" target="_blank">Open Source Plugins</a>
+		</div>
+
+		<hr/>
+		<div>
+	    	<h3>Use your favorite framework</h3>
+			<p>With BuildFireJS you can develop using any client-side javascript framework. like...</p>
+			<img src="https://s3-us-west-2.amazonaws.com/pluginserver/docResources/AngularJSEmberJSReact.jpg" class="frameworks">
+			<br/><br/>
+			<p>Here are some we put together for you:</p>
+			<a class="btn btn-primary" href="https://github.com/BuildFire/?utf8=%E2%9C%93&query=StarterKit" target="_blank">Starter Kits</a>
+		</div>
+	</div>
+</body>
+</html>
